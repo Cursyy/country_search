@@ -11,25 +11,44 @@ function App() {
   }, [query]);
 
   return (
-    <div style={{ width: "400px", margin: "50px auto", fontFamily: "sans-serif" }}>
-      <h2>Country Search</h2>
-      <input
-        type="text"
-        placeholder="Search..."
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        style={{
-          width: "100%",
-          padding: "8px",
-          marginBottom: "20px",
-        }}
-      />
+    <div
+      className="container py-4"
+      style={{ maxHeight: "100vh", overflowY: "auto", boxSizing: "border-box" }}
+    >
+      <div className="row justify-content-center">
+        <div className="col-md-8 col-lg-6">
+          <h2 className="mb-3">Country Search</h2>
 
-      <ul>
-        {results.map((c) => (
-          <li key={c}>{c}</li>
-        ))}
-      </ul>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Search countries..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            aria-label="Search countries"
+          />
+
+          <div className="text-muted mt-2 mb-3">
+            Showing {results.length} result{results.length !== 1 ? "s" : ""}.
+          </div>
+
+          <ul className="list-group shadow-sm countries-list">
+            {results.length === 0 ? (
+              <li className="list-group-item text-muted">No results found</li>
+            ) : (
+              results.map((c) => (
+                <li
+                  key={c}
+                  className="list-group-item d-flex justify-content-between align-items-center"
+                >
+                  <span>{c}</span>
+                  <small className="text-muted">Country</small>
+                </li>
+              ))
+            )}
+          </ul>
+        </div>
+      </div>
     </div>
   );
 }
